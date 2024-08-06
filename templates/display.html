@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Detected Number Plates</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-of-type(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Detected Number Plates</h1>
+    <table>
+        <tr>
+            <th>Number Plate</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Insurance</th>
+            <th>Fastag Balance</th>
+            <th>PUC</th>
+            <th>Owner</th>
+            <th>Model</th>
+            <th>Year</th>
+        </tr>
+        {% for entry in data %}
+        <tr>
+            <td>{{ entry.NumberPlate }}</td>
+            <td>{{ entry.Date }}</td>
+            <td>{{ entry.Time }}</td>
+            <td>{{ entry.Details.insurance if entry.Details.insurance else 'N/A'}}</td>
+            <td>{{ entry.Details.fastag_balance if entry.Details.fastag_balance else 'N/A'}}</td>
+            <td>{{ entry.Details.PUC if entry.Details.PUC else 'N/A' }}</td>
+            <td>{{ entry.Details.registration_details.owner if entry.Details.registration_details else 'N/A' }}</td>
+            <td>{{ entry.Details.registration_details.model if entry.Details.registration_details else 'N/A' }}</td>
+            <td>{{ entry.Details.registration_details.year if entry.Details.registration_details else 'N/A' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/">Go back to home</a>
+</body>
+
+</html>
